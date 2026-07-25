@@ -25,9 +25,13 @@ export default function About() {
         <BentoCard delay={0} className="lg:col-span-2" glowAccent>
           <div className="flex flex-col h-full gap-5">
             <div className="flex items-start gap-4">
-              {/* Avatar monogram */}
-              <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--accent)] to-[var(--accent-2)] flex items-center justify-center text-white text-2xl font-extrabold shadow-lg shadow-[var(--accent-glow)]">
-                AF
+              {/* Avatar Photo */}
+              <div className="flex-shrink-0 w-16 h-16 rounded-2xl overflow-hidden border border-[var(--border)] shadow-md shadow-[var(--accent-glow)] bg-[var(--bg-card)]">
+                <img
+                  src={personalInfo.profileImage}
+                  alt={personalInfo.name}
+                  className="w-full h-full object-cover object-center"
+                />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-[var(--text-primary)]">
