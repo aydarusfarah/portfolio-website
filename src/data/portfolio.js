@@ -8,6 +8,7 @@ export const personalInfo = {
   availability: "Available for IT Apprenticeship (Ausbildung zum Fachinformatiker für Systemintegration)",
   github: "https://github.com",
   linkedin: "https://linkedin.com",
+  profileImage: "/profile.jpg",
 };
 
 export const certifications = [
