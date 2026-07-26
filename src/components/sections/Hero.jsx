@@ -3,15 +3,6 @@ import { motion } from "framer-motion";
 import { ArrowDown, Mail, MapPin } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "../ui/SocialIcons";
 import { personalInfo } from "../../data/portfolio";
-import { TypewriterText } from "../ui/AnimatedText";
-
-const ROLES = [
-  "IT Support Specialist",
-  "Network Administrator",
-  "Virtualization Engineer",
-  "Local AI Enthusiast",
-  "Systems Aspirant",
-];
 
 const floatVariants = {
   animate: {
@@ -86,7 +77,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: 0.15, ease: easeCurve }}
-            className="transform-gpu will-change-transform text-4xl sm:text-6xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-none mb-4"
+            className="transform-gpu will-change-transform text-4xl sm:text-6xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-none mb-3"
           >
             <span className="text-[var(--text-primary)]">Aydarus</span>{" "}
             <span
@@ -97,14 +88,16 @@ export default function Hero() {
             </span>
           </motion.h1>
 
-          {/* Typewriter role */}
+          {/* Static Title / Role */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: 0.25, ease: easeCurve }}
-            className="transform-gpu will-change-transform text-xl sm:text-2xl md:text-3xl font-semibold text-[var(--text-secondary)] mb-5 h-10"
+            className="transform-gpu will-change-transform mb-5"
           >
-            <TypewriterText words={ROLES} />
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[var(--text-secondary)] tracking-wide">
+              {personalInfo.title}
+            </h2>
           </motion.div>
 
           {/* Subtitle */}
@@ -183,7 +176,7 @@ export default function Hero() {
         <div className="lg:col-span-5 flex justify-center items-center order-1 lg:order-2">
           {/* Static Outer Wrapper with Separate Static Glow */}
           <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] xl:w-[460px] xl:h-[460px] mx-auto">
-            {/* Static Ambient Backlight Glow Layer (Not animated inside motion.div) */}
+            {/* Static Ambient Backlight Glow Layer */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[var(--accent)] via-[var(--accent-2)] to-cyan-400 opacity-30 blur-2xl pointer-events-none" />
 
             {/* Hardware-Accelerated Animated Photo Container */}
