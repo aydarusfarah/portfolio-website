@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, Mail, MapPin } from "lucide-react";
+import { ArrowDown, Download, Mail, MapPin } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "../ui/SocialIcons";
 import { personalInfo } from "../../data/portfolio";
 
@@ -126,12 +126,12 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: 0.55, ease: easeCurve }}
-            className="transform-gpu will-change-transform flex flex-col sm:flex-row items-center gap-3.5 mb-10 w-full sm:w-auto"
+            className="transform-gpu will-change-transform flex flex-col sm:flex-row flex-wrap items-center gap-3 mb-10 w-full sm:w-auto"
           >
             <a
               href="#projects"
               id="hero-cta-projects"
-              className="w-full sm:w-auto text-center px-7 py-3.5 rounded-xl font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-[var(--accent-glow)]"
+              className="w-full sm:w-auto text-center px-6 py-3.5 rounded-xl font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-[var(--accent-glow)]"
               style={{ background: "linear-gradient(135deg, var(--accent), var(--accent-2))" }}
             >
               View My Projects
@@ -139,9 +139,18 @@ export default function Hero() {
             <a
               href={`mailto:${personalInfo.email}`}
               id="hero-cta-contact"
-              className="w-full sm:w-auto text-center px-7 py-3.5 rounded-xl font-semibold border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card)] transition-all duration-200 hover:scale-105"
+              className="w-full sm:w-auto text-center px-6 py-3.5 rounded-xl font-semibold border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card)] transition-all duration-200 hover:scale-105"
             >
               Get In Touch
+            </a>
+            <a
+              href="/Aydarus_Farah_CV.pdf"
+              download="Aydarus_Farah_CV.pdf"
+              id="hero-cta-cv"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card)] transition-all duration-200 hover:scale-105"
+            >
+              <Download size={16} className="text-[var(--accent)]" />
+              Download CV (DE/EN)
             </a>
           </motion.div>
 
