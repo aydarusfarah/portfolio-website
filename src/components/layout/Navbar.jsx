@@ -5,6 +5,7 @@ import { useTheme } from "../../context/ThemeContext";
 import { useScrollSpy } from "../../hooks/useScrollSpy";
 
 const NAV_ITEMS = [
+  { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Certs", href: "#certifications" },
@@ -13,7 +14,7 @@ const NAV_ITEMS = [
   { label: "Contact", href: "#contact" },
 ];
 
-const SECTION_IDS = ["about", "skills", "certifications", "projects", "education", "contact"];
+const SECTION_IDS = ["home", "about", "skills", "certifications", "projects", "education", "contact"];
 
 const ThemeIcon = ({ themeKey }) => {
   if (themeKey === "dark") return <Moon size={14} />;

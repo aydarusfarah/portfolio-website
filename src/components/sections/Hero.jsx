@@ -18,7 +18,7 @@ export default function Hero() {
 
   return (
     <section
-      id="hero"
+      id="home"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 pt-24 pb-16"
     >
       {/* Animated background blobs */}
