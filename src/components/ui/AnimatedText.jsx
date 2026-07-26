@@ -1,7 +1,7 @@
+import { memo, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 
-export function TypewriterText({ words, className = "" }) {
+export const TypewriterText = memo(function TypewriterText({ words, className = "" }) {
   const [index, setIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [deleting, setDeleting] = useState(false);
@@ -32,7 +32,7 @@ export function TypewriterText({ words, className = "" }) {
       />
     </span>
   );
-}
+});
 
 export function GradientHeading({ children, className = "", as: Tag = "h2" }) {
   return (
