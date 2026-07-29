@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "../ui/SocialIcons";
 import { personalInfo } from "../../data/portfolio";
 import { SectionHeading } from "../ui/AnimatedText";
@@ -48,16 +48,43 @@ export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setSent(true);
+    setError(null);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "6f0c9917-3be0-4d80-a01e-6d8a579b7aaa",
+          name: form.name,
+          email: form.email,
+          subject: form.subject || "Portfolio Contact Form Submission",
+          message: form.message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSent(true);
+      } else {
+        setError(data.message || "Failed to send message. Please try again later.");
+      }
+    } catch (err) {
+      setError("An unexpected error occurred. Please check your connection and try again.");
+    } finally {
       setLoading(false);
-    }, 1200);
+    }
   };
 
   return (
@@ -147,14 +174,20 @@ export default function Contact() {
                 Thanks for reaching out. I'll get back to you as soon as possible.
               </p>
               <button
-                onClick={() => { setSent(false); setForm({ name: "", email: "", subject: "", message: "" }); }}
-                className="mt-2 px-5 py-2.5 rounded-xl border border-[var(--border)] text-sm text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)] transition-all"
+                onClick={() => { setSent(false); setError(null); setForm({ name: "", email: "", subject: "", message: "" }); }}
+                className="mt-2 px-5 py-2.5 rounded-xl border border-[var(--border)] text-sm text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)] transition-all cursor-pointer"
               >
                 Send another
               </button>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {error && (
+                <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center gap-2.5 text-xs text-rose-400">
+                  <AlertCircle size={16} className="shrink-0 text-rose-400" />
+                  <span>{error}</span>
+                </div>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="contact-name" className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide">
