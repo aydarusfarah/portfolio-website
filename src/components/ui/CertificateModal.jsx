@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Calendar, Award } from "lucide-react";
 import Badge from "./Badge";
+import { useLanguage } from "../../context/LanguageContext";
 
 const badgeColors = {
   "Professional Cert": "violet",
@@ -11,6 +12,8 @@ const badgeColors = {
 };
 
 export default function CertificateModal({ cert, onClose }) {
+  const { t } = useLanguage();
+
   useEffect(() => {
     if (!cert) return;
 
@@ -104,11 +107,11 @@ export default function CertificateModal({ cert, onClose }) {
             <div className="p-4 md:px-6 md:py-4 border-t border-[var(--border)] bg-[var(--bg-surface)] flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--text-muted)]">
               <div className="flex items-center gap-2">
                 <Calendar size={13} className="text-[var(--accent)]" />
-                <span>Issued {cert.date}</span>
+                <span>{t("certifications.issued")} {cert.date}</span>
               </div>
               <div className="flex items-center gap-2 text-[var(--text-secondary)]">
                 <Award size={13} className="text-[var(--accent)]" />
-                <span>Official Verified Certificate</span>
+                <span>{t("certifications.officialVerified")}</span>
               </div>
             </div>
           </motion.div>

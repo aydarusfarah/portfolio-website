@@ -5,19 +5,22 @@ import { personalInfo } from "../../data/portfolio";
 import BentoCard from "../ui/BentoCard";
 import Badge from "../ui/Badge";
 import { SectionHeading } from "../ui/AnimatedText";
-
-const statItems = [
-  { value: "5+", label: "Certifications", icon: Star },
-  { value: "6+", label: "Projects & Labs", icon: Briefcase },
-  { value: "B1", label: "German Level", icon: GraduationCap },
-];
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function About() {
+  const { t } = useLanguage();
+
+  const statItems = [
+    { value: "5+", labelKey: "about.certificationsCount", icon: Star },
+    { value: "6+", labelKey: "about.projectsCount", icon: Briefcase },
+    { value: "B1", labelKey: "about.germanLevel", icon: GraduationCap },
+  ];
+
   return (
     <section id="about" className="py-24 px-4 max-w-7xl mx-auto">
       <SectionHeading
-        title="About Me"
-        subtitle="IT professional with a passion for networks, virtualization, and AI systems."
+        title={t("about.title")}
+        subtitle={t("about.subtitle")}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -37,23 +40,19 @@ export default function About() {
                 <h3 className="text-xl font-bold text-[var(--text-primary)]">
                   {personalInfo.name}
                 </h3>
-                <p className="text-sm text-[var(--text-secondary)] mt-0.5">{personalInfo.title}</p>
+                <p className="text-sm text-[var(--text-secondary)] mt-0.5">{t(personalInfo.title)}</p>
                 <div className="flex items-center gap-1.5 mt-2 text-xs text-[var(--text-muted)]">
                   <MapPin size={12} className="text-[var(--accent)]" />
-                  {personalInfo.location}
+                  {t(personalInfo.location)}
                 </div>
               </div>
             </div>
 
             <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
-              I'm an IT Support Specialist based in Hamburg, Germany, holding multiple professional
-              certifications from Google, IBM, and Cisco. I specialize in building and administering
-              network infrastructure, virtualization labs (VMware, VirtualBox), and local AI
-              environments using open-weight models. My goal is to bridge the gap between
-              traditional IT support and modern AI-powered systems administration.
+              {t("about.bio")}
             </p>
 
-            <Badge label={personalInfo.availability} color="emerald" className="self-start" />
+            <Badge label={t(personalInfo.availability)} color="emerald" className="self-start" />
 
             {/* Contact links */}
             <div className="flex flex-wrap gap-3 pt-1">
@@ -102,12 +101,12 @@ export default function About() {
         <BentoCard delay={0.1}>
           <div className="flex flex-col h-full gap-6">
             <h4 className="text-sm font-semibold text-[var(--text-muted)] uppercase tracking-widest">
-              At a Glance
+              {t("about.atAGlance")}
             </h4>
             <div className="flex flex-col gap-5 flex-1 justify-center">
-              {statItems.map(({ value, label, icon: Icon }, i) => (
+              {statItems.map(({ value, labelKey, icon: Icon }, i) => (
                 <motion.div
-                  key={label}
+                  key={labelKey}
                   initial={{ opacity: 0, x: -15 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.1 }}
@@ -121,7 +120,7 @@ export default function About() {
                     <p className="text-2xl font-extrabold text-[var(--text-primary)] leading-none">
                       {value}
                     </p>
-                    <p className="text-xs text-[var(--text-muted)]">{label}</p>
+                    <p className="text-xs text-[var(--text-muted)]">{t(labelKey)}</p>
                   </div>
                 </motion.div>
               ))}

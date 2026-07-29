@@ -3,6 +3,7 @@ import { Tag, CheckCircle2 } from "lucide-react";
 import { projects } from "../../data/portfolio";
 import { SectionHeading } from "../ui/AnimatedText";
 import Badge from "../ui/Badge";
+import { useLanguage } from "../../context/LanguageContext";
 
 const categoryColors = {
   "Software Development": "violet",
@@ -27,8 +28,11 @@ const personalProjects = projects.filter((p) => p.badge === "Personal Project" |
 const certProjects = projects.filter((p) => p.badge !== "Personal Project" && p.badge !== "Hardware & AI");
 
 function ProjectCard({ project, index }) {
+  const { t } = useLanguage();
   const catColor = categoryColors[project.category] || "accent";
   const badgeColor = badgeColors[project.badge] || "accent";
+  const description = t(project.description);
+  const highlights = t(project.highlights) || [];
 
   return (
     <motion.article
@@ -68,13 +72,13 @@ function ProjectCard({ project, index }) {
         </h3>
 
         <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-          {project.description}
+          {description}
         </p>
 
         {/* Highlights */}
-        {project.highlights && project.highlights.length > 0 && (
+        {Array.isArray(highlights) && highlights.length > 0 && (
           <ul className="flex flex-col gap-1.5 pt-1">
-            {project.highlights.map((h, i) => (
+            {highlights.map((h, i) => (
               <li key={i} className="flex items-start gap-2 text-xs text-[var(--text-secondary)]">
                 <CheckCircle2
                   size={12}
@@ -113,11 +117,13 @@ function ProjectCard({ project, index }) {
 }
 
 export default function Projects() {
+  const { t } = useLanguage();
+
   return (
     <section id="projects" className="py-24 px-4 max-w-7xl mx-auto">
       <SectionHeading
-        title="Projects & Labs"
-        subtitle="Personal builds and 240+ hours of hands-on certification capstone projects."
+        title={t("projects.title")}
+        subtitle={t("projects.subtitle")}
       />
 
       {/* Personal Projects */}

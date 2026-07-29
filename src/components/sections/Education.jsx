@@ -2,13 +2,16 @@ import { motion } from "framer-motion";
 import { GraduationCap, CheckCircle2 } from "lucide-react";
 import { education } from "../../data/portfolio";
 import { SectionHeading } from "../ui/AnimatedText";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function Education() {
+  const { t } = useLanguage();
+
   return (
     <section id="education" className="py-24 px-4 max-w-7xl mx-auto">
       <SectionHeading
-        title="Education & Language"
-        subtitle="Academic and language credentials underpinning professional development in Germany."
+        title={t("education.title")}
+        subtitle={t("education.subtitle")}
       />
 
       <div className="flex justify-center">
@@ -19,7 +22,7 @@ export default function Education() {
           <div className="flex flex-col gap-6 pl-16">
             {education.map((item, i) => (
               <motion.div
-                key={item.title}
+                key={typeof item.title === "object" ? item.title.en : item.title}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
@@ -45,7 +48,7 @@ export default function Education() {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <h3 className="font-bold text-[var(--text-primary)] text-base group-hover:text-[var(--accent)] transition-colors duration-200">
-                        {item.title}
+                        {t(item.title)}
                       </h3>
                       {item.institution && (
                         <p className="text-xs font-medium text-[var(--text-muted)] mt-0.5">
@@ -54,11 +57,11 @@ export default function Education() {
                       )}
                       <div className="flex items-center gap-1.5 mt-2">
                         <CheckCircle2 size={13} className="text-emerald-400" />
-                        <span className="text-xs font-medium text-emerald-400">{item.status}</span>
+                        <span className="text-xs font-medium text-emerald-400">{t(item.status)}</span>
                       </div>
                       {item.description && (
                         <p className="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">
-                          {item.description}
+                          {t(item.description)}
                         </p>
                       )}
                     </div>

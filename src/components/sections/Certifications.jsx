@@ -6,6 +6,7 @@ import BentoCard from "../ui/BentoCard";
 import Badge from "../ui/Badge";
 import { SectionHeading } from "../ui/AnimatedText";
 import CertificateModal from "../ui/CertificateModal";
+import { useLanguage } from "../../context/LanguageContext";
 
 const iconMap = { ShieldCheck, Cpu, Network, Server, Lock };
 
@@ -26,12 +27,13 @@ const issuerAccent = {
 
 export default function Certifications() {
   const [selectedCert, setSelectedCert] = useState(null);
+  const { t } = useLanguage();
 
   return (
     <section id="certifications" className="py-24 px-4 max-w-7xl mx-auto">
       <SectionHeading
-        title="Certifications"
-        subtitle="Industry-recognised credentials validating expertise in IT support, networking, and security."
+        title={t("certifications.title")}
+        subtitle={t("certifications.subtitle")}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -85,14 +87,14 @@ export default function Certifications() {
 
                 {/* Description */}
                 <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-                  {cert.description}
+                  {t(cert.description)}
                 </p>
 
                 {/* Date & View Certificate button */}
                 <div className="flex items-center justify-between text-xs text-[var(--text-muted)] mt-auto pt-3 border-t border-[var(--border)]">
                   <div className="flex items-center gap-1.5">
                     <Calendar size={11} />
-                    <span>Issued {cert.date}</span>
+                    <span>{t("certifications.issued")} {cert.date}</span>
                   </div>
 
                   {cert.image && (
@@ -105,7 +107,7 @@ export default function Certifications() {
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--accent)] hover:text-white border border-[var(--border)] hover:border-[var(--accent)] shadow-sm transition-all duration-200 cursor-pointer group/btn"
                     >
                       <Eye size={13} className="text-[var(--accent)] group-hover/btn:text-white transition-colors duration-200" />
-                      <span>View Certificate</span>
+                      <span>{t("certifications.viewCert")}</span>
                     </button>
                   )}
                 </div>

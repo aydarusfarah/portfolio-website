@@ -1,4 +1,5 @@
 import { ThemeProvider } from "./context/ThemeContext";
+import { LanguageProvider } from "./context/LanguageContext";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Hero from "./components/sections/Hero";
@@ -12,19 +13,21 @@ import Contact from "./components/sections/Contact";
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)] transition-colors duration-500">
-        <Navbar />
-        <main>
-          <Hero />
-          <About />
-          <Skills />
-          <Certifications />
-          <Projects />
-          <Education />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
+      <LanguageProvider>
+        <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)] transition-colors duration-500">
+          <Navbar />
+          <main>
+            <Hero />
+            <About />
+            <Skills />
+            <Certifications />
+            <Projects />
+            <Education />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

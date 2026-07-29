@@ -11,6 +11,7 @@ import { skills } from "../../data/portfolio";
 import BentoCard from "../ui/BentoCard";
 import { SectionHeading } from "../ui/AnimatedText";
 import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 const iconMap = {
   Network,
@@ -91,20 +92,22 @@ const lightColors = {
 
 export default function Skills() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const colorClasses = theme === "light" ? lightColors : darkColors;
   return (
     <section id="skills" className="py-24 px-4 max-w-7xl mx-auto">
       <SectionHeading
-        title="Technical Skills"
-        subtitle="A broad toolkit built through certifications, self-study, and hands-on lab work."
+        title={t("skills.title")}
+        subtitle={t("skills.subtitle")}
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {skills.map((skill, i) => {
           const Icon = iconMap[skill.icon] || Server;
           const c = colorClasses[skill.color] || colorClasses.violet;
+          const categoryName = t(skill.category);
           return (
-            <BentoCard key={skill.category} delay={i * 0.07}>
+            <BentoCard key={typeof skill.category === 'object' ? skill.category.en : skill.category} delay={i * 0.07}>
               <div className="flex flex-col gap-4 h-full">
                 {/* Header */}
                 <div className="flex items-center gap-3">
@@ -114,7 +117,7 @@ export default function Skills() {
                     <Icon size={18} className={c.icon} />
                   </div>
                   <h3 className="font-semibold text-[var(--text-primary)] text-sm">
-                    {skill.category}
+                    {categoryName}
                   </h3>
                 </div>
 

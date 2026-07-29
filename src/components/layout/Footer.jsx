@@ -1,15 +1,17 @@
 import { Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "../ui/SocialIcons";
 import { personalInfo } from "../../data/portfolio";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
   const year = new Date().getFullYear();
   return (
     <footer className="border-t border-[var(--border)] bg-[var(--bg-surface)] mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="text-center sm:text-left">
           <p className="font-bold text-[var(--text-primary)]">{personalInfo.name}</p>
-          <p className="text-sm text-[var(--text-muted)] mt-0.5">{personalInfo.title}</p>
+          <p className="text-sm text-[var(--text-muted)] mt-0.5">{t(personalInfo.title)}</p>
         </div>
 
         <div className="flex items-center gap-4">
@@ -44,7 +46,7 @@ export default function Footer() {
         </div>
 
         <p className="text-xs text-[var(--text-muted)]">
-          © {year} {personalInfo.name}. All rights reserved.
+          © {year} {personalInfo.name}. {t("footer.rights")}
         </p>
       </div>
     </footer>

@@ -5,50 +5,52 @@ import { GithubIcon, LinkedinIcon } from "../ui/SocialIcons";
 import { personalInfo } from "../../data/portfolio";
 import { SectionHeading } from "../ui/AnimatedText";
 import BentoCard from "../ui/BentoCard";
-
-const contactLinks = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: personalInfo.email,
-    href: `mailto:${personalInfo.email}`,
-    id: "contact-email",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: personalInfo.phone,
-    href: `tel:${personalInfo.phone}`,
-    id: "contact-phone",
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: personalInfo.location,
-    href: null,
-    id: "contact-location",
-  },
-  {
-    icon: GithubIcon,
-    label: "GitHub",
-    value: "github.com/aydurusfarah",
-    href: personalInfo.github,
-    id: "contact-github",
-  },
-  {
-    icon: LinkedinIcon,
-    label: "LinkedIn",
-    value: "linkedin.com/in/aydurusfarah",
-    href: personalInfo.linkedin,
-    id: "contact-linkedin",
-  },
-];
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const contactLinks = [
+    {
+      icon: Mail,
+      label: "Email",
+      value: personalInfo.email,
+      href: `mailto:${personalInfo.email}`,
+      id: "contact-email",
+    },
+    {
+      icon: Phone,
+      label: "Phone",
+      value: personalInfo.phone,
+      href: `tel:${personalInfo.phone}`,
+      id: "contact-phone",
+    },
+    {
+      icon: MapPin,
+      label: "Location",
+      value: t(personalInfo.location),
+      href: null,
+      id: "contact-location",
+    },
+    {
+      icon: GithubIcon,
+      label: "GitHub",
+      value: "github.com/aydurusfarah",
+      href: personalInfo.github,
+      id: "contact-github",
+    },
+    {
+      icon: LinkedinIcon,
+      label: "LinkedIn",
+      value: "linkedin.com/in/aydurusfarah",
+      href: personalInfo.linkedin,
+      id: "contact-linkedin",
+    },
+  ];
 
   const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
@@ -81,7 +83,7 @@ export default function Contact() {
         setError(data.message || "Failed to send message. Please try again later.");
       }
     } catch (err) {
-      setError("An unexpected error occurred. Please check your connection and try again.");
+      setError(t("contact.errorGeneric"));
     } finally {
       setLoading(false);
     }
@@ -90,8 +92,8 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 px-4 max-w-7xl mx-auto">
       <SectionHeading
-        title="Get In Touch"
-        subtitle="Open to IT apprenticeship opportunities and technical collaborations."
+        title={t("contact.title")}
+        subtitle={t("contact.subtitle")}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
@@ -100,11 +102,10 @@ export default function Contact() {
           <div className="flex flex-col gap-6 h-full">
             <div>
               <h3 className="text-lg font-bold text-[var(--text-primary)] mb-1">
-                Let's connect!
+                {t("contact.letsConnect")}
               </h3>
               <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                Whether you're looking for a motivated IT professional for your team or just want to
-                talk tech — I'd love to hear from you.
+                {t("contact.connectDesc")}
               </p>
             </div>
 
@@ -150,10 +151,10 @@ export default function Contact() {
                   className="w-2 h-2 rounded-full bg-emerald-400"
                 />
                 <span className="text-xs font-semibold text-[var(--text-primary)]">
-                  Currently Available
+                  {t("contact.currentlyAvailable")}
                 </span>
               </div>
-              <p className="text-xs text-[var(--text-secondary)]">{personalInfo.availability}</p>
+              <p className="text-xs text-[var(--text-secondary)]">{t(personalInfo.availability)}</p>
             </div>
           </div>
         </BentoCard>
@@ -169,15 +170,15 @@ export default function Contact() {
               <div className="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center">
                 <CheckCircle size={30} className="text-emerald-400" />
               </div>
-              <h3 className="text-xl font-bold text-[var(--text-primary)]">Message Sent!</h3>
+              <h3 className="text-xl font-bold text-[var(--text-primary)]">{t("contact.successTitle")}</h3>
               <p className="text-sm text-[var(--text-secondary)] max-w-xs">
-                Thanks for reaching out. I'll get back to you as soon as possible.
+                {t("contact.successDesc")}
               </p>
               <button
                 onClick={() => { setSent(false); setError(null); setForm({ name: "", email: "", subject: "", message: "" }); }}
                 className="mt-2 px-5 py-2.5 rounded-xl border border-[var(--border)] text-sm text-[var(--text-secondary)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)] transition-all cursor-pointer"
               >
-                Send another
+                {t("contact.sendAnother")}
               </button>
             </motion.div>
           ) : (
@@ -191,7 +192,7 @@ export default function Contact() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="contact-name" className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide">
-                    Your Name
+                    {t("contact.nameLabel")}
                   </label>
                   <input
                     id="contact-name"
@@ -200,13 +201,13 @@ export default function Contact() {
                     required
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="Max Mustermann"
+                    placeholder={t("contact.namePlaceholder")}
                     className="px-4 py-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border)] text-[var(--text-primary)] placeholder-[var(--text-muted)] text-sm focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all duration-200"
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="contact-email-input" className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide">
-                    Email Address
+                    {t("contact.emailLabel")}
                   </label>
                   <input
                     id="contact-email-input"
@@ -215,7 +216,7 @@ export default function Contact() {
                     required
                     value={form.email}
                     onChange={handleChange}
-                    placeholder="you@example.com"
+                    placeholder={t("contact.emailPlaceholder")}
                     className="px-4 py-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border)] text-[var(--text-primary)] placeholder-[var(--text-muted)] text-sm focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all duration-200"
                   />
                 </div>
@@ -223,7 +224,7 @@ export default function Contact() {
 
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="contact-subject" className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide">
-                  Subject
+                  {t("contact.subjectLabel")}
                 </label>
                 <input
                   id="contact-subject"
@@ -232,14 +233,14 @@ export default function Contact() {
                   required
                   value={form.subject}
                   onChange={handleChange}
-                  placeholder="Ausbildung Opportunity / Project Inquiry"
+                  placeholder={t("contact.subjectPlaceholder")}
                   className="px-4 py-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border)] text-[var(--text-primary)] placeholder-[var(--text-muted)] text-sm focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all duration-200"
                 />
               </div>
 
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="contact-message" className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide">
-                  Message
+                  {t("contact.messageLabel")}
                 </label>
                 <textarea
                   id="contact-message"
@@ -248,7 +249,7 @@ export default function Contact() {
                   required
                   value={form.message}
                   onChange={handleChange}
-                  placeholder="Tell me about the opportunity or project..."
+                  placeholder={t("contact.messagePlaceholder")}
                   className="px-4 py-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border)] text-[var(--text-primary)] placeholder-[var(--text-muted)] text-sm focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all duration-200 resize-none"
                 />
               </div>
@@ -259,7 +260,7 @@ export default function Contact() {
                 disabled={loading}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white transition-all duration-200 disabled:opacity-60"
+                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-white transition-all duration-200 disabled:opacity-60 cursor-pointer"
                 style={{ background: "linear-gradient(135deg, var(--accent), var(--accent-2))" }}
               >
                 {loading ? (
@@ -271,7 +272,7 @@ export default function Contact() {
                 ) : (
                   <>
                     <Send size={15} />
-                    Send Message
+                    {t("contact.sendBtn")}
                   </>
                 )}
               </motion.button>

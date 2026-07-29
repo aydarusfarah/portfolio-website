@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, Download, Mail, MapPin } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "../ui/SocialIcons";
 import { personalInfo } from "../../data/portfolio";
+import { useLanguage } from "../../context/LanguageContext";
 
 const floatVariants = {
   animate: {
@@ -15,6 +16,7 @@ const easeCurve = [0.25, 0.1, 0.25, 1.0];
 
 export default function Hero() {
   const [imgError, setImgError] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <section
@@ -68,7 +70,7 @@ export default function Hero() {
               className="w-2 h-2 rounded-full bg-emerald-400 shadow-md shadow-emerald-400/50"
             />
             <span className="text-xs font-medium text-[var(--text-secondary)]">
-              {personalInfo.availability}
+              {t(personalInfo.availability)}
             </span>
           </motion.div>
 
@@ -79,12 +81,12 @@ export default function Hero() {
             transition={{ duration: 0.35, delay: 0.15, ease: easeCurve }}
             className="transform-gpu will-change-transform text-4xl sm:text-6xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-none mb-3"
           >
-            <span className="text-[var(--text-primary)]">Aydarus</span>{" "}
+            <span className="text-[var(--text-primary)]">{t("hero.nameFirst")}</span>{" "}
             <span
               className="bg-gradient-to-r from-[var(--accent)] via-[var(--accent-2)] to-cyan-400 bg-clip-text text-transparent"
               style={{ backgroundSize: "200% 100%" }}
             >
-              Farah
+              {t("hero.nameLast")}
             </span>
           </motion.h1>
 
@@ -96,7 +98,7 @@ export default function Hero() {
             className="transform-gpu will-change-transform mb-5"
           >
             <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[var(--text-secondary)] tracking-wide">
-              {personalInfo.title}
+              {t(personalInfo.title)}
             </h2>
           </motion.div>
 
@@ -107,7 +109,7 @@ export default function Hero() {
             transition={{ duration: 0.35, delay: 0.35, ease: easeCurve }}
             className="transform-gpu will-change-transform text-base sm:text-lg text-[var(--text-muted)] max-w-xl mb-3 leading-relaxed"
           >
-            {personalInfo.subtitle}
+            {t(personalInfo.subtitle)}
           </motion.p>
 
           {/* Location */}
@@ -118,7 +120,7 @@ export default function Hero() {
             className="transform-gpu will-change-transform flex items-center justify-center lg:justify-start gap-1.5 text-sm text-[var(--text-muted)] mb-8"
           >
             <MapPin size={15} className="text-[var(--accent)]" />
-            {personalInfo.location}
+            {t(personalInfo.location)}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -134,14 +136,14 @@ export default function Hero() {
               className="w-full sm:w-auto text-center px-6 py-3.5 rounded-xl font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-[var(--accent-glow)]"
               style={{ background: "linear-gradient(135deg, var(--accent), var(--accent-2))" }}
             >
-              View My Projects
+              {t("hero.projectsBtn")}
             </a>
             <a
               href={`mailto:${personalInfo.email}`}
               id="hero-cta-contact"
               className="w-full sm:w-auto text-center px-6 py-3.5 rounded-xl font-semibold border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card)] transition-all duration-200 hover:scale-105"
             >
-              Get In Touch
+              {t("hero.contactBtn")}
             </a>
             <a
               href="/Aydarus_Farah_CV.pdf"
@@ -150,7 +152,7 @@ export default function Hero() {
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-card)] transition-all duration-200 hover:scale-105"
             >
               <Download size={16} className="text-[var(--accent)]" />
-              Download CV (DE/EN)
+              {t("hero.cvBtn")}
             </a>
           </motion.div>
 
@@ -231,7 +233,7 @@ export default function Hero() {
         className="mt-12 flex flex-col items-center gap-2 text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors cursor-pointer"
         aria-label="Scroll down"
       >
-        <span className="text-xs tracking-widest font-medium uppercase">Scroll</span>
+        <span className="text-xs tracking-widest font-medium uppercase">{t("hero.scroll")}</span>
         <ArrowDown size={16} />
       </motion.a>
     </section>

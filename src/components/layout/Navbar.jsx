@@ -2,16 +2,17 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon, Zap } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { useScrollSpy } from "../../hooks/useScrollSpy";
 
-const NAV_ITEMS = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Certs", href: "#certifications" },
-  { label: "Projects", href: "#projects" },
-  { label: "Education", href: "#education" },
-  { label: "Contact", href: "#contact" },
+const NAV_ITEMS_KEYS = [
+  { key: "home", href: "#home" },
+  { key: "about", href: "#about" },
+  { key: "skills", href: "#skills" },
+  { key: "certifications", href: "#certifications" },
+  { key: "projects", href: "#projects" },
+  { key: "education", href: "#education" },
+  { key: "contact", href: "#contact" },
 ];
 
 const SECTION_IDS = ["home", "about", "skills", "certifications", "projects", "education", "contact"];
@@ -24,6 +25,7 @@ const ThemeIcon = ({ themeKey }) => {
 
 export default function Navbar() {
   const { theme, setTheme, themes } = useTheme();
+  const { lang, setLang, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const active = useScrollSpy(SECTION_IDS, 100);
@@ -65,7 +67,8 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-1">
-            {NAV_ITEMS.map(({ label, href }) => {
+            {NAV_ITEMS_KEYS.map(({ key, href }) => {
+              const label = t(`nav.${key}`);
               const id = href.slice(1);
               const isActive = active === id;
               return (
@@ -91,8 +94,36 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Theme selector + mobile toggle */}
+          {/* Controls: Language switcher + Theme selector + mobile toggle */}
           <div className="flex items-center gap-2">
+            {/* Language Switcher */}
+            <div className="flex items-center p-0.5 rounded-full bg-[var(--bg-card)] border border-[var(--border)] text-xs font-semibold">
+              <button
+                id="lang-btn-en"
+                onClick={() => setLang("en")}
+                className={`px-2 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+                  lang === "en"
+                    ? "bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] text-white shadow-sm"
+                    : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                }`}
+                aria-label="Switch language to English"
+              >
+                EN
+              </button>
+              <button
+                id="lang-btn-de"
+                onClick={() => setLang("de")}
+                className={`px-2 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+                  lang === "de"
+                    ? "bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] text-white shadow-sm"
+                    : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                }`}
+                aria-label="Sprache auf Deutsch wechseln"
+              >
+                DE
+              </button>
+            </div>
+
             {/* Theme pills */}
             <div className="flex items-center gap-1 p-1 rounded-full bg-[var(--bg-card)] border border-[var(--border)]">
               {themeKeys.map((key) => {
@@ -149,14 +180,14 @@ export default function Navbar() {
             className="fixed top-[60px] left-0 right-0 z-40 bg-[var(--bg-card)] border-b border-[var(--border)] overflow-hidden md:hidden"
           >
             <div className="px-4 py-4 flex flex-col gap-1">
-              {NAV_ITEMS.map(({ label, href }) => (
+              {NAV_ITEMS_KEYS.map(({ key, href }) => (
                 <a
                   key={href}
                   href={href}
                   onClick={() => setMenuOpen(false)}
                   className="px-4 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface)] rounded-xl text-sm font-medium transition-colors"
                 >
-                  {label}
+                  {t(`nav.${key}`)}
                 </a>
               ))}
             </div>
