@@ -1,8 +1,8 @@
 export const personalInfo = {
   name: "Aydarus Farah Hassan",
   title: {
-    en: "IT Support Specialist & Systems Aspirant",
-    de: "IT-Support-Spezialist & Anwärter Systemintegration",
+    en: "IT Support for System Integration",
+    de: "Fachinformatiker für Systemintegration",
   },
   subtitle: {
     en: "Specializing in System Integration, Virtualization Labs, Network Administration, and Local AI Environments.",
