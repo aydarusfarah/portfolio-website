@@ -18,6 +18,7 @@ export const certifications = [
     date: "Nov 2025",
     badge: "Professional Cert",
     icon: "ShieldCheck",
+    image: "/certs/Google IT Support Pro.jpeg",
     description:
       "6-course series covering hardware, networking, operating systems, system administration, and IT security.",
   },
@@ -27,6 +28,7 @@ export const certifications = [
     date: "Dec 2025",
     badge: "Professional Cert",
     icon: "Cpu",
+    image: "/certs/IBM IT Support Pro.jpeg",
     description:
       "9-course specialization in technical support, cloud computing, database basics, and CompTIA preparation.",
   },
@@ -36,6 +38,7 @@ export const certifications = [
     date: "Nov 2025",
     badge: "Networking",
     icon: "Network",
+    image: "/certs/Cisco Certified Support Technician IT Support-100-140.jpeg",
     description:
       "10-unit comprehensive specialization in technical support operations and network troubleshooting.",
   },
@@ -45,6 +48,7 @@ export const certifications = [
     date: "Nov 2025",
     badge: "CCNA Prep",
     icon: "Server",
+    image: "/certs/Cisco CCNA (200-301).jpeg",
     description:
       "In-depth training on IPv4/IPv6, VLANs, EtherChannel, VPNs, AAA Security, DHCP, DNS, and NTP.",
   },
@@ -54,6 +58,7 @@ export const certifications = [
     date: "Dec 2025",
     badge: "Security",
     icon: "Lock",
+    image: "/certs/Cybersecurity and Technology.jpeg",
     description:
       "Specialized training in computer system security, incident response, network defense, and governance.",
   },

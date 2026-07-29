@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ShieldCheck, Cpu, Network, Server, Lock, Award, Calendar } from "lucide-react";
+import { ShieldCheck, Cpu, Network, Server, Lock, Award, Calendar, Eye } from "lucide-react";
 import { certifications } from "../../data/portfolio";
 import BentoCard from "../ui/BentoCard";
 import Badge from "../ui/Badge";
 import { SectionHeading } from "../ui/AnimatedText";
+import CertificateModal from "../ui/CertificateModal";
 
 const iconMap = { ShieldCheck, Cpu, Network, Server, Lock };
 
@@ -23,6 +25,8 @@ const issuerAccent = {
 };
 
 export default function Certifications() {
+  const [selectedCert, setSelectedCert] = useState(null);
+
   return (
     <section id="certifications" className="py-24 px-4 max-w-7xl mx-auto">
       <SectionHeading
@@ -49,14 +53,14 @@ export default function Certifications() {
                 bg-[var(--bg-card)] border-[var(--border)]
                 hover:border-[var(--border-hover)]
                 hover:shadow-xl hover:shadow-[var(--accent-glow)]
-                transition-colors duration-300
+                transition-colors duration-300 flex flex-col justify-between
                 ${i === 0 ? "xl:col-span-2" : ""}
               `}
             >
               {/* Top gradient accent bar */}
               <div className={`h-1 w-full bg-gradient-to-r ${gradient}`} />
 
-              <div className="p-6 flex flex-col gap-4">
+              <div className="p-6 flex flex-col gap-4 h-full">
                 {/* Icon + badge row */}
                 <div className="flex items-start justify-between gap-3">
                   <div
@@ -84,10 +88,26 @@ export default function Certifications() {
                   {cert.description}
                 </p>
 
-                {/* Date */}
-                <div className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] mt-auto pt-2 border-t border-[var(--border)]">
-                  <Calendar size={11} />
-                  Issued {cert.date}
+                {/* Date & View Certificate button */}
+                <div className="flex items-center justify-between text-xs text-[var(--text-muted)] mt-auto pt-3 border-t border-[var(--border)]">
+                  <div className="flex items-center gap-1.5">
+                    <Calendar size={11} />
+                    <span>Issued {cert.date}</span>
+                  </div>
+
+                  {cert.image && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedCert(cert);
+                      }}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--accent)] hover:text-white border border-[var(--border)] hover:border-[var(--accent)] shadow-sm transition-all duration-200 cursor-pointer group/btn"
+                    >
+                      <Eye size={13} className="text-[var(--accent)] group-hover/btn:text-white transition-colors duration-200" />
+                      <span>View Certificate</span>
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -99,6 +119,9 @@ export default function Certifications() {
           );
         })}
       </div>
+
+      {/* Certificate Preview Lightbox Modal */}
+      <CertificateModal cert={selectedCert} onClose={() => setSelectedCert(null)} />
     </section>
   );
 }
